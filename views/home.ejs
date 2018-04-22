@@ -1,0 +1,131 @@
+<% include header %>
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+<% } %>
+<link rel="stylesheet" href="/css/home.css">
+<script src="./js/ajax.js"></script>
+<% include nav %>
+
+<% if(!session.user){ %>
+    <% include login %>
+<% } %>
+
+<header class="article-tap padmar">
+    <ul class="tip">
+        <li class="all"><a href="javascript:;" class="label label-default">全部</a></li>
+        <li class="javascript"><a href="javascript:;" class="label label-default">javascript</a></li>
+        <li class="html"><a href="javascript:;" class="label label-default">html</a></li>
+        <li class="css"><a href="javascript:;" class="label label-default">css</a></li>
+        <li class="node"><a href="javascript:;" class="label label-default">node</a></li>
+        <li class="other"><a href="javascript:;" class="label label-default">其他</a></li>
+    </ul>
+</header>
+
+<article class="article-list">
+        <% articles.forEach(function(post){ %>
+    <div class="content">
+        <a href="/personal/<%= post.name %>" target="_blank" title=" <%= post.name %> " class="post-author">
+            <span class="author"><%= post.name %></span>
+            <span class="times"><%= post.moment %></span> &nbsp;&nbsp;
+            <span class="label label-info"><%= post.type %></span> 
+        </a>
+        <a href="/articledetail/<%= post.id %>" target="_blank">           
+            <h4 class="title"><%= post.title %></h4>
+        
+        <div class="content-fo">
+            <span class="glyphicon glyphicon-heart"></span><span><%= post.likes %></span>
+            <span class="glyphicon glyphicon-comment"></span><span><%= post.comments %></span>&nbsp;&nbsp;&nbsp;
+            <span class="pv-item">阅读量&nbsp;<span class="pv"><%= post.pv %></span></span>
+        </div>
+    </a>
+    </div>
+        <% }) %>
+        <% if(!postsPageLength){ %>
+            <div class="nothing">
+                    <p><span class="glyphicon glyphicon-list-alt"></span></p>
+                    <p>这里什么都没有</p>
+            </div>
+        <% } %>
+</article>
+<div style="width:50%;margin-left:25%;margin-top: 30px;text-align:center;" class="pagination" id="page"></div>	
+<script src="/js/pagination.js"></script>
+<script>
+    window.onload = function () { 
+        if('<%= type %>'==0){
+            $('.tip li').eq(0).find('a').attr('class','label label-info');
+        }else{
+            $(".<%=type%>").find('a').attr('class','label label-info');
+        }
+     }
+    	pagination({
+			selector: '#page',
+			totalPage: '<%= postsPageLength %>',
+			currentPage: 1,
+			prev: '上一页',
+			next: '下一页',
+			first: true,
+			last: true,
+			showTotalPage: true,
+			count: 2//当前页前后显示的数量
+		},function(val){
+			// 当前页
+			$.ajax({
+				url: "articles/page?type=<%=type%>",
+				type: 'POST',
+				data:{
+					page: val
+				},
+				cache: false,
+				success: function (msg) {
+					console.log(msg)
+					if (msg != false) {
+						$('.article-list').html(' ')
+						$.each(msg,function(i,val){
+							console.log(val.name)
+							$('.article-list').append(
+                                "<div class='content'>" +
+                                    '<a href="/personal/' +  val.name + '" title="' +val.name + '" target="_blank" class="post-author">' +
+                                       
+                                            "<span class='author'>" + val.name + "</span>" + "&nbsp;&nbsp;" +
+                                            "<span class='times'>" + val.moment + '</span>' + "&nbsp;&nbsp;" +
+                                            '<span class="label label-info">' + val.type + '</span> ' +
+                                            "</a>" +
+                                                '<a href="/articledetail/' + val.id + '" target="_blank">' +
+                                            "<h4 class='title'>" + val.title + "</h4>" +
+                                        
+                                        "<div class='content-fo'>" +
+                                            "<span class='glyphicon glyphicon-heart'></span><span>" + val.likes + "</span>" +
+                                            "<span class='glyphicon glyphicon-comment'></span><span>" + val.comments + "</span>&nbsp;&nbsp;&nbsp;" +
+                                           ' <span class="pv-item">阅读量&nbsp;' + "<span class='pv'>" + val.pv + "</span>" + '</span>' +
+                                       "</div>" +
+                                       "</a>" +
+                                    "</div>" 
+							)
+						})
+					}else{
+						alert('分页不存在')
+					} 
+				}
+			})
+		
+        })
+        
+        let articleTap = document.getElementsByClassName('article-tap')[0].getElementsByClassName('tip')[0];
+        articleTap.onclick = function(e){
+          //  let e = e||window.e;
+            let target = e.target||e.srcElement;
+            // let lis = articleTap.getElementsByTagName('li');
+            // console.log(lis)
+            if(target.nodeName=='A'){            
+                let type = target.parentNode.getAttribute('class');
+               if(type==='all'){
+                   window.location.href = '/home';
+               }else{
+                window.location.href ='/home?type=' + type;
+               target.setAttribute('class','label label-info');
+               }
+            }
+        }
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+
+<div class="sign">
+    <a href="javascript:;" title="关闭" class="login-close close">×</a>
+    <div class="sign-title">
+        <h1>用户注册</h1>
+        <h3>来吧骚年们!</h3>
+    </div>
+    <form class="form signup" role="form">
+
+            <div class="form-group">
+                <input type="text" name="username" placeholder="账号不少于两个字符" class="form-control">
+            </div>
+        <div class="form-group">
+            <input type="password" name="pass" class="pass form-control" placeholder="密码">
+        </div>
+        <div class="form-group">
+            <input type="password" name="repeatpass" id="repeat" placeholder="重复密码" class="form-control">
+        </div>
+            <div class="form-group">
+            <input type="button" value="注册" class="btn btn-primary login-up">
+            </div>
+
+    </form>
+    <form class="form signin" role="form">
+       <div class="form-group">
+           <input type="text" name="username" placeholder="请输入用户名" class="form-control">
+       </div>
+       <div class="form-group">
+           <input type="password" name="pass" class="pass form-control" placeholder="请输入密码">
+       </div>
+      <div class="form-group">
+          <input type="button" value="登录" class="btn btn-primary login-in">
+      </div>
+    </form>
+    <div class="form-tips">
+        <span>已有账号？</span>
+        <a href="javascript:;" class="register">登录</a>
+    </div>
+</div>
+<div class="login-form-mask"></div>
+<script>
+  //  $(document).ready(function () {
+        var $close = $('.login-close');
+        var $sign = $('.sign');
+        $close.click(function () {
+            $sign.css("display","none");
+        })
+
+        var $register = $('.register'), //login/loginup切换
+            $span = $('.form-tips span'),
+            $signup = $('.signup'),
+            $signTitle = $('.sign-title h1'),
+            $signin = $('.signin');
+
+        $register.click(function () {
+            if($span.html() == "已有账号？"){
+
+                $signin.css('display','block');
+                $signup.css('display','none');
+                $(this).html('注册');
+                $span.html("没有账号？");
+                $signTitle.html("欢迎登录");
+
+            }else{
+
+                $signin.css('display','none');
+                $signup.css('display','block');
+                $(this).html('登录');
+                $span.html("已有账号？");
+                $signTitle.html("欢迎注册");
+            }
+        })
+
+        var $loginup = $('.loginup');   //点击登录/注册，阻止事件冒泡
+        $loginup.click(function () {
+            $mask.fadeIn(100);
+            $sign.slideDown(200);
+            return false;
+        })
+
+        var $close = $('.login-close'),
+            $mask = $('.login-form-mask'),
+            $sign = $('.sign');
+
+        $sign.click(function () {
+            return false;
+        })
+
+        $close.click(function (e) {
+           // e.stopPropagation();
+            fadeOut();
+
+        })
+
+        $(document).click(function (e) { //点击任意位置取消登录框
+            //e.stopPropagation();
+            fadeOut();
+        })
+        function fadeOut(){
+            $mask.fadeOut(100);
+            $sign.slideUp(200);
+        }
+    
+
+    var loginUp = document.getElementsByClassName('login-up')[0],
+        loginIn = document.getElementsByClassName('login-in')[0],
+        signUp = document.getElementsByClassName('signup')[0],
+        signIn = document.getElementsByClassName('signin')[0];
+
+    
+    
+    loginUp.onclick = function () { //注册
+        var data1 = 'username=' + signUp["username"].value + '&' + 'pass='+ signUp["pass"].value + '&' + 'repeatpass=' + signUp["repeatpass"].value;
+        var  reg = /^[\u4E00-\u9FA5]{2,5}$/;
+      /*  if(!reg.test(signUp["username"].value)){
+            signUp["username"].classList.add("tips");
+            signUp['username'].value()
+        } */
+        ajax('post','/signup',data1,"application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
+             let  text = JSON.parse(xhr.responseText).code;  
+             console.log(text)  //服务器返回的对象
+               if(text == 3){
+                   fadeOut();
+                   alert("注册成功")
+                   setTimeout(()=>{
+                    window.location.reload();
+                },1000)
+               //    document.getElementsByClassName('login')[0].outerHTML = "<li class='users'><a href='/'>"+signUp["username"].value+ "(=^ ^=)" +"</a></li>"
+               }else{
+                fadeOut();
+                alert("用户已存在")
+               }
+               
+            }
+        }
+
+    }
+
+    loginIn.onclick = function () { //登录
+        var data2 = 'username=' + signIn["username"].value + '&' + 'pass=' + signIn["pass"].value;
+        ajax('post','/signin',data2,"application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
+             let  text = JSON.parse(xhr.responseText).code;    //服务器返回的对象
+                console.log(text);
+                
+                 //  document.getElementsByClassName('login')[0].outerHTML = "<li class='users'><a href='/'>"+signUp["username"].value+ "(=^ ^=)" +"</a></li>"
+               if(text===1){
+                fadeOut();
+                // let imgTitle = document.getElementsByClassName('img-title')[0];
+                // imgTitle.setAttribute('src','/images/' + JSON.parse(xhr.responseText).avator)
+                setTimeout(()=>{
+                    window.location.reload();
+                },1000)
+               }else if(text === 2){
+                   alert('密码错误')
+               }else{
+                   alert('账号不存在')
+               }
+               
+            }
+        }
+      
+    }
+</script>

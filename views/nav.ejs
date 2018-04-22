@@ -1,0 +1,86 @@
+
+</head>
+<body>
+    <header class="nav-head">
+        <div class="nav container">
+            <ul>
+                <li><a href="/home">首页</a></li>
+                <li> <a href="/share">资源分享</a></li>
+                <li> <a href="/share">推荐</a></li>
+                <li> <a href="/share">个人日记</a></li>
+                <li><a href="/about">关于作者</a></li>
+                <li><input type="text" placeholder="搜索" class="input-sm search"></li>
+              
+                <% if(session.user){ %>
+                    <li>
+                        <img src="/images/<%= session.avator %>" alt="" class="img-circle img-title">
+                       
+                        <ul class="menu">
+                            <li class="personal menulist"><a href="/personal/<%= session.user %>">主页</a></li>
+                         <!--   <li class="collection menulist"><a href="#">收藏集</a></li>
+                         -->
+                            <li class="menulist"><a href="/articles">写文章</a></li>
+                            <li class="out"><a href="/signout">登出</a></li>
+                        </ul>
+                    </li>
+                    <script>
+                          var imgTitle = document.getElementsByClassName('img-title')[0],
+           
+                          menu = document.getElementsByClassName('menu')[0];
+                          imgTitle.onclick = function (event) {
+                          showTap();
+                          event.stopPropagation();
+                            }
+                            
+                            document.body.addEventListener('click',function (event) { 
+                                menu.style.display = 'none';
+                               // event.stopPropagation();
+                             },true)
+      
+                              function showTap(){
+                                 if(menu.style.display == 'block'){
+                                     menu.style.display = 'none';
+                                 }else {
+                                     menu.style.display = 'block';
+                                 }
+                            }
+                            //退出登录
+                            var signOut = document.getElementsByClassName('out')[0];
+                        /*    signOut.onclick = function(){
+                                ajax('get','/signout',null);
+                                xhr.onreadystatechange = function () {
+                              if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
+                                 let  text = xhr.responseText;    //服务器返回的对象
+                            if(text){
+                                window.location.reload = 'localhost:8080/home';
+                                 }
+                                 
+                             }
+                         }
+
+                            }*/
+                    </script>
+                    <% }else{ %>
+                        <li class="login">
+                                <a class="loginup" href="javascript:;"><span class="glyphicon glyphicon-user"></span> 注册 | 登录</a>
+                           
+                            </li>
+                            <% } %>
+              
+            </ul>
+ 
+         </div>
+    </header>
+    <script>
+      
+    
+        var searchInput = document.getElementsByClassName('search')[0];
+        searchInput.onfocus = function () {
+            this.style.width = "300px";
+        }
+        searchInput.onblur = function () {
+            this.style.width = "180px";
+        }
+        
+    </script>
+

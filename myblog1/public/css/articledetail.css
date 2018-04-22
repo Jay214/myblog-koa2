@@ -1,0 +1,185 @@
+.article-list{
+    width:70%;
+    margin:auto;
+    margin-top: 20px;
+}
+.article-list .author img{
+    width:50px;
+    height:50px;
+}
+.post-head{
+    margin-top:25px;
+}
+.post-head a{
+    color: #000;
+}
+.post-head img{
+    float: left;
+    margin-right:5px;
+}
+.post-head h4{
+    padding-top:5px;
+    height:16px;
+    line-height:16px;
+}
+.post-head .author span{
+    font-size:14px;
+    color: gray;
+}
+.post-head .editself,.post-head .delete{
+    font-size:14px;
+}
+.post-type{
+    float: right;
+    margin-top:10px;
+    color: #fff;
+    width:80px;
+    height:25px;
+    line-height:25px;
+}
+.article-title{
+    font-size: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+}
+.article-pv{
+    margin-top: 18px;
+    margin-right: 20px;
+    float: right;
+    font-size: 15px;
+    font-weight: 300;
+    color: #aaa;
+}
+.content-section{
+    padding:20px 0;
+}
+.follow{
+    display: inline-block;
+   background: lightgrey;
+   color: #555;
+}
+.follow:hover{
+    background: lightblue;
+    color: white;
+    border:1px solid lightblue;
+}
+/*评论列表*/
+.comment{  
+    width:70%;
+    margin:40px auto 15px auto;
+    padding-bottom: 10px;
+    background: #fff;
+}
+.create-comment textarea{
+    width:90%;
+    display: block;
+    margin:auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    resize: none;
+}
+.create-comment .btn{
+    float: right;
+    margin:10px 5% 10px 0;
+    background: #30a07e;
+    border: 0;
+}
+.comment-list{
+    width:100%;
+    /* border:1px solid lightgrey; */
+    clear: both;
+    padding:0 0 5px 10px;
+}
+.comment-item{
+    clear: both;
+    margin-top: 20px;
+    border-top: 1px solid lightgrey;
+}
+.comment-item img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.comment-item:last-child{
+    padding-bottom: 20px;   
+    border-bottom: 1px solid lightgrey;
+}
+.comment-list h4{
+    display: inline-block;   
+}
+.comment-list h4 a{
+    color: #000;
+    font-weight: 600;
+    font-size: 16px;
+}
+.comment-list span{
+    float: right;
+    font-size:14px;
+    color: gray;
+    padding:5px 5px 0 0;
+}
+.comment-taps{
+    position: fixed;
+    top:200px;
+    right:10%;
+}
+.comment-taps li.list{
+    width:40px;
+    height:40px;
+    line-height:40px;
+    font-size:20px;
+    margin-top:10px;
+    text-align: center;
+    background:lightgrey;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.comment-taps li.list :hover{
+    width:40px;
+    height:40px;
+    line-height:40px;
+    font-size:20px;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: rgba(180,180,180,0.9);
+}
+.comment-taps li.list a{
+    color: #30a07e;
+}
+.comment-taps li.list a[title="点赞"]{
+    color: lightcoral;
+}
+.deleteComment :hover{
+    color: rgb(248, 88, 88);
+}
+.deleteComment{
+    float: right;
+}
+.tip-box{
+    position: fixed;
+    top:50%;left:50%;
+    margin-left:-125px;
+    background:#888;
+    border-radius:20px;
+    width:250px;height:100px;
+    line-height:100px;
+    text-align:center;
+    color:#fff;
+    z-index: 9999;
+}
+.login-form-mask {
+    z-index: 999;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+}

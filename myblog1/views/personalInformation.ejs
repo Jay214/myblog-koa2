@@ -1,0 +1,180 @@
+<% include header %>
+<link rel="stylesheet" href="/css/personalInformation.css">
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+    <% } %>
+<script src="./js/ajax.js"></script>
+<% include nav %>
+<% if(!session.user){ %>
+    <% include login %>
+<% } %>
+<div class="information-table padmar">
+    <h2>个人资料</h2>
+     <span class="err">保存失败!</span>
+   <% if(session&&session.user===user.name){ %>
+    <div class="change"><a href="javascript:;" id="edit">修改</a><a href="javascript:;" id="save">保存 </a><a href="javascript:;" id="cancel">取消</a></div>
+    <% } %>
+    <form  role="form">
+        <ul>
+            <% if(session&&session.user===user.name){ %>
+            <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><button class="btn upload">点击上传<input type="file" id="head-img" accept="image/*"></button></li>
+            <% }else{ %>
+                <li><span>头像</span><img src="images/<%= user.avator %>" alt="" class="img-head"><input type="hidden"></li>
+
+            <% } %>
+            <li><span>昵称</span><input type="text" name="username" placeholder="请输入昵称" value="<%= user.name %>" readonly></li>
+            <li><span>职位</span><input type="text" name="job" placeholder="请输入职位" value="<%= user.job %>" readonly></li>
+            <li><span>公司</span><input type="text" name="company" placeholder="请输入公司" value="<%= user.company %>" readonly></li>
+            <li><span>个人简介</span><input type="text" name="introduce" placeholder="请输入个人简介" value="<%= user.introdu %>" readonly></li>
+            <li><span>个人主页</span><input type="text" name="address" placeholder="请输入个人地址" value="<%= user.userhome %>" readonly></li>
+            <li><span>GitHub</span><input type="text" name="github" placeholder="请输入github地址" id="dk" value="<%= user.github %>" readonly></li>
+            <input type="hidden" id="blod">
+        </ul>
+    </form>
+</div>
+<% if(session&&session.user===user.name){ %>
+<script>
+    var imgUp = document.getElementById('head-img'),
+        blod = document.getElementById('blod'),
+        imgHead = document.getElementsByClassName('img-head')[0];
+
+    var imgUrl,avators;
+    imgUp.onchange = function(){
+       /* if(this.files.length!=0){
+            var file = new FormData(),
+                imgs = this.files[0];
+            file.append("img",imgs);
+        }
+        if(!file){
+            return;
+        }*/
+        if(this.files.length != 0){
+            var file = this.files[0],
+                reader = new FileReader();
+            if(!reader){
+                this.value = '';
+                return;
+            }
+
+            reader.onload = function(e){
+                this.value = '';
+                    imgUrl = e.target.result;
+                   // console.log(imgUrl)
+                var image = new Image();
+					 image.onload = function(){
+						 var canvas = document.createElement('canvas');
+						 var ctx = canvas.getContext("2d");
+						 canvas.width = 100;
+						 canvas.height = 100;
+						 ctx.clearRect(0, 0, 100, 100);
+						 ctx.drawImage(image, 0, 0, 100, 100);
+                         var blobs = canvas.toDataURL("image/png");
+                         blod.value = blobs;
+                    
+                        
+					 }
+					 image.src = e.target.result;                     
+				};              
+				reader.readAsDataURL(file);
+        }
+        var timer = setTimeout(()=>{
+            let base64 = blod.value.replace(/\+/g,'%2B');
+            var avator ='avator=' + base64;
+       // console.log(avators)
+       console.log(base64)
+        ajax('post','/personalImg',avator,"application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState===4&&xhr.status>=200&&xhr.status<300){
+                console.log("test")
+                imgHead.setAttribute("src",blod.value);
+                let imgTitle = document.getElementsByClassName('img-title')[0];
+                imgTitle.setAttribute('src',blod.value);
+            }
+        }
+    
+        },3000)
+    }
+        
+       
+     
+
+    function getObjectURL(file){
+        var url = null;
+        if(window.createObjectURL != undefined){
+            url = window.createObjectURl(file);
+        }else if(window.URL != undefined){
+             // mozilla(firefox)
+             url = window.URL.createObjectURL(file);
+        }else if(window.webkitURL != undefined){
+             // webkit or chrome
+             url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    var edit = document.getElementById('edit'),
+        save = document.getElementById('save'),
+        cancel = document.getElementById('cancel');
+
+    var inputs = document.getElementsByTagName('input'),
+        len = inputs.length,
+        inputArr = new Array();
+    edit.onclick = function () {    //编辑
+        save.style.display = "block";
+        cancel.style.display = "block";
+        this.style.display = "none";
+        for(let i = 2; i<len; i++){
+            inputs[i].removeAttribute('readonly');
+            inputArr.push(inputs[i].value)
+        }
+        console.log(inputArr)
+    }
+
+    cancel.onclick = function () {  //取消编辑
+        for(let i = 2; i<len; i++){
+            inputs[i].value = inputArr[i-2];
+            inputs[i].setAttribute('readonly',true);
+        }
+        inputArr = [];
+        save.style.display = "none";
+        this.style.display = "none";
+        edit.style.display = "block";
+    }
+
+    save.onclick = function () {    //保存编辑操作
+        let dataStr;
+        let  inputs = document.getElementsByTagName('input');
+            dataStr = 'username=' + inputs[2].value + '&'+
+                      'job=' + inputs[3].value + '&'+
+                      'company=' + inputs[4].value + '&'+
+                      'introduce=' + inputs[5].value + '&'+
+                      'address=' + inputs[6].value + '&'+
+                      'github=' + inputs[7].value;
+        console.log(dataStr)
+        ajax('post','/personalInfo',dataStr,'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if((xhr.readyState==4&&xhr.status>=200&&xhr.status<300)&&xhr.responseText=='true') {
+                cancel.style.display = "none";
+                save.style.display = "none";
+                edit.style.display = "block";
+                for(let i = 2; i<len; i++){
+                    inputs[i].setAttribute('readonly',true);
+                    inputArr = [];
+                    inputArr.push(inputs[i].value);
+                }
+
+            }else {
+                var err = document.getElementsByClassName('err')[0];
+                err.style.display = 'inline';
+                setTimeout(()=>{
+                    err.style.display = 'none';
+                },1000);
+
+            }
+        }
+    }
+
+</script>
+<% } %>
+</body>
+</html>

@@ -1,0 +1,134 @@
+
+.head{
+    margin: 20px 0 20px 0;
+    padding:15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+.person{
+    width: 60%;
+}
+.person a{
+    color:#5e5e5e;
+}
+.head{
+    position: relative;
+}
+.head .imgs{
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin-right:20px;
+}
+.user-title{
+    display: inline-block;
+}
+.user-title h3{
+    padding-bottom:12px;
+}
+.user-title p{
+    color: #5e5e5e;
+}
+.user-title p .glyphicon{
+    margin-right:10px;
+}
+.title-right, .title-right ul{
+    float: right;
+    margin-bottom:18px;
+}
+.title-right .info{
+    float: right;
+}
+.title-right .btn{
+    background: lightblue;
+    color: white;
+}
+.title-right .btn:hover{
+    background: #30a07e;
+}
+.title-right .selfs{
+    float: left;
+    margin-left:20px;
+    font-size:18px;
+}
+.information{
+    margin-bottom: -22px;
+    background: #fff;
+    padding: 0 2% 0 2%;
+}
+.information ul{
+    font-size: 18px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: space-between;
+}
+.information li{
+    float: left;
+    height: 60px;
+    line-height: 60px;
+}
+.information li a{
+    display: inline-block;
+    height: 100%;
+}
+.information li.actives{
+    border-left: 3px solid lightcoral;
+    box-sizing: content-box;
+}
+.information li a span.num{
+    color: darkgrey;
+}
+.news{
+    height: 100%;
+    background: #fff;
+    margin-top: 30px;
+}
+.news a{
+    display: block;
+    clear: both;
+    position: relative;
+}
+.news p{
+    margin: auto;
+    text-align: center;
+    color: darkgrey;
+}
+.news .nothing{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.news .nothing span.glyphicon{
+    font-size: 45px;
+}
+.news .imgs{
+    width: 50px;
+    height: 50px;
+}
+.news h3{
+    font-size: 18px;
+}
+.news .btn{
+    width: 12%;
+    background:#30a07e;
+    color: #fff;
+    z-index: 9999;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+.news .btn:hover{
+    background: #4ccea7;
+}
+.news .user-title p{
+    text-align: left;
+}
+.news .head{
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 0;
+    position: relative;
+}

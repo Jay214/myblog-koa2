@@ -1,0 +1,86 @@
+<% include header %>
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+<% } %>
+<link rel="stylesheet" href="/css/home.css">
+<style>
+    .aboutHead{
+        height: 300px;
+        width: 70%;
+        margin: auto;
+        margin-top: 30px;
+        padding-top: 15px;
+        background: url('./img/01.jpg');
+        background-size: contain;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+    }
+    .aboutHead img{
+        width: 100px;
+        height: 100px;
+        display: block;
+        margin: auto;
+        margin-bottom: -15px;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+    }
+    .aboutHead h2,.aboutHead p{
+        text-align: center;
+        color: #fff;
+        text-shadow: 2px 2px 2px #999;
+    }
+    .aboutContent{
+        width: 70%;
+        margin: auto;
+        padding: 15px 5% 25px 10%;
+        background: #fff;
+    }
+    .aboutContent h3{
+        height: 90px;
+        line-height: 90px;
+    }
+    .aboutContent ul li{
+        height: 40px;
+        line-height: 40px;
+        list-style: square url("./img/arrow.png");
+    }
+    .aboutContent p{
+        height: 30px;
+
+    }
+    .aboutContent footer{
+        padding-top: 15px;
+        text-align: center;
+        color: gray;
+    }
+</style>
+<script src="./js/ajax.js"></script>
+<% include nav %>
+
+<% if(!session.user){ %>
+    <% include login %>
+<% } %>
+
+
+<header class="aboutHead">
+    <img src="./img/jay.jpg" alt="">
+    <h2>JayJun</h2>
+    <p>其实也还好</p>
+</header>
+<div class="aboutContent">
+    <h3>About me</h3>
+    <ul>
+        <li>普通二本在校大三学生，目前在找实习阶段</li>
+        <li>理工男，单身</li>
+        <li>校内web开发实验室成员，学习前端一年半</li>
+        <li>喜爱音乐、Coding</li>
+    </ul>
+    <h3>关于本站</h3>
+    <p>开发本站一是为了用于记录学习笔记，保持写笔记和文章的习惯，二是将所学技术学以致用,本站很多地方仍存在不足，自认为前端资质还不够高，望读者多多提议。</p>
+    <h3>联系方式</h3>
+    <p>若对本站技术上有什么建议或问题，欢迎联系咨询</p>
+    <p>微信号：LiYeLiay</p>
+    <p>邮箱：2752402930@qq.com</p>
+    <footer>copyRight by LJJ</footer>
+</div>
+</body>
+</html>

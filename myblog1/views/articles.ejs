@@ -1,0 +1,110 @@
+<% include header %>
+<link rel="stylesheet" href="/css/articles.css">
+<script src="./js/wangEditor.min.js"></script>
+<script src="./js/ajax.js"></script>
+<% include nav %>
+<div class="editor1"></div>
+<div id="edit">
+    <span class="edit-tips">发表成功</span>
+    <span class="num">5字</span>
+    <select name="derection" id="derect">
+        <option value="0">文章类型</option>
+        <option value="javascript">javascript</option>
+        <option value="html">html</option>
+        <option value="css">css</option>
+        <option value="node">node</option>
+        <option value="other">其他</option>
+    </select>
+    <a href="javascript:;" class="editorUp"><span class="glyphicon glyphicon-share-alt"></span>发布文章</a>
+</div>
+<div id="article">
+    <input type="text" placeholder="文章标题" name="title" class="article-title"/>
+
+    <div class="editor2"></div>
+
+</div>
+<!-- <div class="login-form-mask"></div> -->
+<!-- <div class="tip-box">发表成功</div> -->
+<script src="/js/mask.js"></script>
+<script>
+//配置编辑器
+var E = window.wangEditor
+var editor = new E('.editor1','.editor2')
+// 或者 var editor = new E( document.getElementById('editor') )
+ editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+//editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
+// 将图片大小限制为 3M
+editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+// 限制一次最多上传 5 张图片
+editor.customConfig.uploadImgMaxLength = 5;
+editor.customConfig.pasteFilterStyle = true;
+editor.create();
+editor.txt.html('<span>编辑文章内容.......</span>');
+
+//统计字数
+var num = document.getElementsByClassName('num')[0],
+    editType = document.getElementById('derect'),
+    editContent = document.getElementsByClassName('editor2')[0];
+    editContent.onkeyup = function () {
+        num.innerHTML = (editContent.innerHTML.length - 120) + '字';
+    }
+//ajax上传文章
+var editorUp = document.getElementsByClassName('editorUp')[0],
+    editTitle = document.getElementsByClassName('article-title')[0],
+    editTips = document.getElementsByClassName('edit-tips')[0];
+
+    editorUp.onclick = function () {
+      //  console.log(editContent.innerHTML)
+    
+        if(editTitle.value&&editContent.innerHTML.length>132){
+            console.log(editor.txt.text())
+            if(editType.value==0){
+          fadeout('请选择文章类型');
+            return false;
+            }
+        let data = { "title": editTitle.value,"content":editor.txt.html(),"type":editType.value };
+       let data2 =  JSON.stringify(data);
+        // let data = "title=" + editTitle.value
+        //            + '&content=' + editor.txt.html()//editContent.innerHTML
+        //            + '&type=' + editType.value;  
+        console.log(data2);
+        ajax('post','/articles',data2,'application/json');
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState==4&&xhr.status>=200&&xhr.status<300){
+                let  text = xhr.responseText;    //服务器返回的对象
+                console.log(text)
+                if(text==1){
+                    mask('发表成功');
+                   setTimeout(()=>{
+                    window.location.href = '/home';
+                   },1500);
+                  //  fadeout('发表成功');
+                    // editTips.innerHTML = '发表成功';
+                    // editTips.style.animation = 'fadeout 2s';
+                    //window.location.href = '/home';
+                }else{
+                    fadeout('发表失败');
+                    // editTips.innerHTML = '发表失败';
+                    // editTips.style.animation = 'fadeout 2s';
+                }
+            }
+        }
+        }else{
+            fadeout('文章内容和标题不能为空');
+            // editTips.innerHTML = '文章内容和标题不能为空';
+            // editTips.style.animation = 'fadeout 2s';
+        }
+     
+    }
+
+    
+    function fadeout(text){
+        editTips.innerHTML = text;
+        editTips.style.opacity = 1;
+        setTimeout(()=>{
+            editTips.style.opacity = 0;
+        },1000)
+    }
+
+</script>
+<% include footer %>

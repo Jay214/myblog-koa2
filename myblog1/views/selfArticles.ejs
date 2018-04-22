@@ -1,0 +1,31 @@
+<% include header %>
+<% if(!session.user){ %>
+<link rel="stylesheet" href="/css/login.css">
+<% } %>
+<link rel="stylesheet" href="/css/home.css">
+<style>
+    .nothing p{
+    margin: auto;
+    text-align: center;
+    color: darkgrey;
+}
+ .nothing{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+ .nothing span.glyphicon{
+    font-size: 45px;
+}
+</style>
+<script src="./js/ajax.js"></script>
+<% include nav %>
+
+<% if(!session.user){ %>
+    <% include login %>
+<% } %>
+<div class="nothing">
+        <p><span class="glyphicon glyphicon-list-alt"></span></p>
+        <p>这里什么都没有</p>
+</div>
+</body>
+</html>

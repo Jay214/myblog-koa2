@@ -1,0 +1,83 @@
+.editor1{
+    width:100%;
+    border-bottom:1px solid lightgrey;
+}
+#edit{
+    position: relative;
+    float: right;
+    margin-right:15%;
+    top:-28px;
+    color: gray;
+}
+#edit a{
+    color: gray;
+    display: inline-block;
+    margin-left:15px;
+}
+#edit a:hover{
+    color: #000;
+}
+#article{
+    width:60%;
+    margin:30px auto 0 auto;
+    background: #fff;
+}
+#article .article-title{
+    width:100%;
+    height:60px;
+    font-size:30px;
+    padding-left:2%;
+    border:none;
+    border-bottom:1px solid lightgrey;
+    box-shadow: 0 -3px 3px #e9e9e9 inset;
+}
+.editor2{
+    height:500px;
+}
+.num{
+    display: inline-block;
+   
+}
+.edit-tips{
+    position: relative;
+    margin-right: 80px;
+    color: #985f0d;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+#derect{
+    border: none;
+    outline: none;
+    background: #f4f5f5;
+}
+/* @keyframes fadeout {
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+} */
+.tip-box{
+    position: fixed;
+    top:30%;left:50%;
+    margin-left:-125px;
+    background:#888;
+    border-radius:20px;
+    width:250px;height:100px;
+    line-height:100px;
+    text-align:center;
+    color:#fff;
+    z-index: 9999;
+}
+.login-form-mask {
+    z-index: 999;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+}
+
+.show{
+    display: block;
+}

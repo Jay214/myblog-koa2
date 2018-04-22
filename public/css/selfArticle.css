@@ -1,0 +1,54 @@
+.article-list{
+    width:100%;
+    margin:auto;
+    margin-top:30px;
+    background: #fff;
+}
+.article-list .content{
+    padding: 20px 20px;
+    border-bottom: 1px solid #eee;
+}
+.article-list .content:hover{
+    background: #eee;
+}
+.article-list .content:last-child{
+    border-bottom: 0;
+}
+.article-list .content .author{
+    color: gray;
+}
+.article-list .content .times{
+    color: grey;
+}
+.article-list .content .title{
+    font-size:23px;
+    margin:15px 0 15px 0;
+    color: #000;
+}
+.article-list .content-fo{
+    color: #515151;
+    font-size:14px;
+}
+.content .post-author:hover{
+    color:blue;
+}
+.article-list .content-fo .glyphicon{
+    display: inline-block;
+    top:2px;
+   line-height: 20px;
+    padding-right:5px;
+}
+.article-list .content-fo .glyphicon-heart{
+    color: lightcoral;
+}
+.article-list .content-fo .glyphicon-comment{
+    color: lightblue;
+    padding-left: 15px;
+}
+.article-list .content-fo .pv-item{
+    float: right;
+    font-size: 18px;
+}
+.article-list .content-fo .pv{
+    color: lightblue;
+}

@@ -1,0 +1,94 @@
+.article-tap{
+    width:70%;
+    margin:auto;
+}
+.article-tap ul{
+    width:100%;
+    margin:auto;
+    height:20px;
+    line-height:20px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content:space-around;
+}
+.article-tap li{
+    height:25px;
+    float: left;
+}
+.article-tap li a{
+    font-size:16px;
+}
+.article-list{
+    width:70%;
+    margin:auto;
+    margin-top:30px;
+    background: #fff;
+}
+.article-list .content{
+    padding: 20px 20px;
+    border-bottom: 1px solid #eee;
+}
+.article-list .content:hover{
+    background: #eee;
+}
+.article-list .content:last-child{
+    border-bottom: 0;
+}
+.article-list .content .author{
+    color: gray;
+}
+.article-list .content .times{
+    color: grey;
+}
+.article-list .content .title{
+    font-size:23px;
+    margin:15px 0 15px 0;
+    color: #000;
+}
+.article-list .content-fo{
+    color: #515151;
+    font-size:14px;
+}
+.content .post-author:hover{
+    color:blue;
+}
+.article-list .content-fo .glyphicon{
+    display: inline-block;
+    top:2px;
+   line-height: 20px;
+    padding-right:5px;
+}
+.article-list .content-fo .glyphicon-heart{
+    color: lightcoral;
+}
+.article-list .content-fo .glyphicon-comment{
+    color: lightblue;
+    padding-left: 15px;
+}
+.article-list .content-fo .pv-item{
+    float: right;
+    font-size: 18px;
+}
+.article-list .content-fo .pv{
+    color: lightblue;
+}
+.pagination a,.pagination span{
+    display: inline-block;
+    width: 10%;
+    margin: auto;
+}
+.nothing p{
+    margin: auto;
+    text-align: center;
+    color: darkgrey;
+}
+ .nothing{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+ .nothing span.glyphicon{
+    font-size: 45px;
+}
